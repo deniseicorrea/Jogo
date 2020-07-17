@@ -1,8 +1,20 @@
 import pygame
+from random import randint
 pygame.init()
-x = 400
-y = 300
+x = 350  #max 530 min 230
+y = 180
+pos_x = 200
+pos_y = 800
+pos_ya = 800
+pos_yc = 800
+velocidade_outros = 12
 velocidade = 10
+fundo = pygame.image.load('rua.png')
+carro = pygame.image.load('carroyellow.png')
+azul = pygame.image.load('carroazull.png')
+vermelho = pygame.image.load('carroredd.png')
+roxo = pygame.image.load('carroroxoo.png')
+
 
 janela = pygame.display.set_mode((800,600))
 pygame.display.set_caption("Meu primeiro jogo com Python")
@@ -16,17 +28,28 @@ while janela_aberta :
              janela_aberta = False
 
     comandos = pygame.key.get_pressed()
-    if comandos[pygame.K_UP]:
-        y -= velocidade
-    if comandos[pygame.K_DOWN]:
-        y += velocidade
-    if comandos[pygame.K_RIGHT]:
-        x += velocidade
-    if comandos[pygame.K_LEFT]:
-        x -= velocidade
-    janela.fill((0,0,0))
 
-    pygame.draw.circle(janela, (0,255,0),(x,y),50)
+    if comandos[pygame.K_RIGHT] and x <= 530:
+        x += velocidade
+    if comandos[pygame.K_LEFT] and x >= 40:
+        x -= velocidade
+    if (pos_y <= -180) and (pos_ya <= -180) and (pos_yc <= -180) :
+       pos_y = randint(800,2000)
+       pos_ya = randint(800,2000)
+       pos_yc = randint(800,2000)
+
+
+
+
+    pos_y -= velocidade_outros
+    pos_ya -= velocidade_outros +2
+    pos_yc -= velocidade_outros + 10
+
+    janela.blit(fundo, (0,0))
+    janela.blit(carro,(x,y))
+    janela.blit(azul,(pos_x, pos_y))
+    janela.blit(vermelho,(pos_x -200, pos_ya))
+    janela.blit(roxo, (pos_x +290, pos_yc))
     pygame.display.update()
 
 
